@@ -4,7 +4,7 @@
  */
 
 import { useEffect } from "react";
-import "./airbnb.css";
+import "./poster.css";
 
 function App() {
   return (
