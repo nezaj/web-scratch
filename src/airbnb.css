@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+@font-face {
+  font-family: "AirbnbCereal";
+  src: url("./assets/fonts/Airbnb/AirbnbCereal.ttf") format("truetype");
+}
+
+.poster {
+  width: 18in;
+  height: 24in;
+  background: #ff5a5f;
+  color: white;
+  padding-left: 2in;
+  padding-top: 2in;
+  font-size: 26em;
+  letter-spacing: 8px;
+  line-height: 1.2;
+  font-family: "AirbnbCereal";
+  font-weight: 600;
+}
+
+.belo {
+  overflow: visible;
+  position: absolute;
+  top: 19in;
+  width: 2in;
+  height: 2in;
+}
