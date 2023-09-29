@@ -4,6 +4,6 @@ I'm going to use this as a web scratchpad
 
 ## Quick Start
 ```
-yarn install
+yarn
 make dev
 ```
