@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.poster {
+  width: 18in;
+  height: 24in;
+  background: #0866ff;
+  color: white;
+  font-size: 15em;
+  letter-spacing: 8px;
+  line-height: 1.2;
+  font-family: "Facebook Sans";
+  font-weight: 500;
+  font-weight: bold;
+  padding-top: 2in;
+  padding-left: 2in;
+}
+
+.fb {
+  overflow: visible;
+  position: absolute;
+  top: 19in;
+  width: 2in;
+  height: 2in;
+}
