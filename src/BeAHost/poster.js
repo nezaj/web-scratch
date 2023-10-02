@@ -8,7 +8,7 @@ import "./poster.css";
 
 function App() {
   return (
-    <div className="poster">
+    <div className="airbnb-poster">
       Be a<br /> host.
       <svg
         className="belo"

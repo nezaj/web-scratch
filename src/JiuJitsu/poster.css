@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.bjj-poster {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 18in;
+  height: 24in;
+  padding: 2em 4em;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+
+.bjj-header {
+  margin-bottom: 0.5em;
+  text-align: center;
+  font-size: 8em;
+  letter-spacing: 8px;
+}
+
+.bjj-column {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 50%;
+  gap: 1rem;
+}
+
+.bjj-principle {
+  padding: 1em;
+  font-size: 2.25em;
+  line-height: 1.1;
+  letter-spacing: 8px;
+}

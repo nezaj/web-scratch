@@ -14,7 +14,7 @@ html {
   src: url("../assets/fonts/Airbnb/AirbnbCereal.ttf") format("truetype");
 }
 
-.poster {
+.airbnb-poster {
   width: 18in;
   height: 24in;
   background: #ff5a5f;

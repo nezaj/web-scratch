@@ -9,7 +9,7 @@ html {
   height: 100%;
 }
 
-.poster {
+.fb-poster {
   width: 18in;
   height: 24in;
   background: #0866ff;
@@ -24,7 +24,7 @@ html {
   padding-left: 2in;
 }
 
-.fb {
+.fb-logo {
   overflow: visible;
   position: absolute;
   top: 19in;
