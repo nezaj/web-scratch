@@ -1880,27 +1880,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@instantdb/core@npm:0.3.393":
-  version: 0.3.393
-  resolution: "@instantdb/core@npm:0.3.393"
+"@instantdb/core@npm:0.4.0":
+  version: 0.4.0
+  resolution: "@instantdb/core@npm:0.4.0"
   dependencies:
     immer: 9.0.14
     object-hash: ^3.0.0
     uuid: ^9.0.0
   peerDependencies:
     react: ">=16"
-  checksum: c053b8d18d7edbb2b3dd0683e29af72d2f36344ae68dce02ee48c586aa8e69802bd36aadca4b5ce965cdf7abec0980d3f4451beb98cea89a721ca5d03a93958e
+  checksum: 25fa7f61cadcb004495667c86ff79856fb22a11d9be5c2d8b2ea29fb7ab90e145dff147d4acff26ba3b8815f10a843c6c2467afdf4b3b005b77d591019dc6a45
   languageName: node
   linkType: hard
 
-"@instantdb/react@npm:^0.3.393":
-  version: 0.3.393
-  resolution: "@instantdb/react@npm:0.3.393"
+"@instantdb/react@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@instantdb/react@npm:0.4.0"
   dependencies:
-    "@instantdb/core": 0.3.393
+    "@instantdb/core": 0.4.0
   peerDependencies:
     react: ">=16"
-  checksum: 9137773117795300f29f130da7835f758e693142206ee17f51b4ba4a8c1fec9fcf3ac973cdd36c2dacbd4073b50630228bd7e12e3d2908ec32409b8558f5ab7f
+  checksum: 8cc25088a061f5dc145bd7d454de30f65bb3709bba051464f2e6dde9302e3b90b2f2f988f81875f12b67c188ef42d37c7d806b27996220da02ea375931a61a9e
   languageName: node
   linkType: hard
 
@@ -13153,7 +13153,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web-scratch@workspace:."
   dependencies:
-    "@instantdb/react": ^0.3.393
+    "@instantdb/react": ^0.4.0
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0

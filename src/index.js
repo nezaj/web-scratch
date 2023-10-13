@@ -5,6 +5,7 @@ import "./index.css";
 import Airbnb from "./BeAHost/poster";
 import Facebook from "./MoveFast/poster";
 import JiuJitsu from "./JiuJitsu/poster";
+import StroopRepl from "./StroopRepl";
 
 let Component = null;
 switch (window.location.pathname) {
@@ -17,8 +18,11 @@ switch (window.location.pathname) {
   case "/bjj":
     Component = JiuJitsu;
     break;
+  case "/stroop":
+    Component = StroopRepl;
+    break;
   default:
-    Component = Airbnb;
+    Component = StroopRepl;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
