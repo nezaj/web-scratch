@@ -15,11 +15,28 @@ function clearScores(users) {
   transact(txs);
 }
 
+function clearProfiles(users) {
+  const txs = users.map((u) => tx.users[u.id].update({ handle: "" }));
+  transact(txs);
+}
+
+function clearProfileName(userId) {
+  if (!userId) {
+    return;
+  }
+  transact(tx.users[userId].update({ handle: "" }));
+}
+
 function deleteUser(userId) {
   if (!userId) {
     return;
   }
   transact(tx.users[userId].delete());
+}
+
+function deleteEnts(ents) {
+  const txs = ents.map((e) => tx.rooms[e.id].delete());
+  transact(txs);
 }
 
 function ActionInput({ onSubmit, label, submitLabel = "Submit" }) {
@@ -29,7 +46,6 @@ function ActionInput({ onSubmit, label, submitLabel = "Submit" }) {
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit(value);
-        setValue("");
       }}
       className="flex flex-col"
     >
@@ -63,7 +79,7 @@ function ActionButton({ onClick, label, className = "" }) {
 }
 
 function App() {
-  const query = { users: {} };
+  const query = { users: {}, rooms: { users: {} } };
   const { isLoading, error, data } = useQuery(query);
   if (isLoading) return <div>...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -73,13 +89,13 @@ function App() {
       <div className="w-1/2">
         <div>
           <div className="text-xl my-2">Query:</div>
-          <pre className="bg-slate-200 p-2 overflow-visible">
+          <pre className="bg-slate-200 p-2 overflow-visible flex-wrap">
             {JSON.stringify(query, null, 2)}
           </pre>
         </div>
         <div>
           <div className="text-xl my-2">Results:</div>
-          <pre className="bg-slate-200 p-2">
+          <pre className="bg-slate-200 p-2 flex-wrap">
             {JSON.stringify(data, null, 2)}
           </pre>
         </div>
@@ -88,14 +104,33 @@ function App() {
       <div>
         <div>
           <div className="text-xl my-2">Actions:</div>
-          <ActionButton
-            onClick={() => clearScores(data["users"])}
-            label="Clear Highscore"
-          />
+          <div className="flex-row space-x-4">
+            <ActionButton
+              onClick={() => clearScores(data["users"])}
+              label="Clear Highscore"
+            />
+            <ActionButton
+              onClick={() => clearProfiles(data["users"])}
+              label="Clear Profiles"
+            />
+            <ActionButton
+              onClick={() => deleteEnts(data["users"])}
+              label="Delete Users"
+            />
+            <ActionButton
+              onClick={() => deleteEnts(data["rooms"])}
+              label="Delete Rooms"
+            />
+          </div>
           <ActionInput
             onSubmit={deleteUser}
             label="userId:"
             submitLabel="Delete User"
+          />
+          <ActionInput
+            onSubmit={clearProfileName}
+            label="userId:"
+            submitLabel="Clear Profile Name"
           />
         </div>
       </div>
