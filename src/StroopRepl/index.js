@@ -79,14 +79,14 @@ function ActionButton({ onClick, label, className = "" }) {
 }
 
 function App() {
-  const query = { users: {}, rooms: { users: {} } };
+  const query = { users: {}, rooms: { users: {} }, games: {} };
   const { isLoading, error, data } = useQuery(query);
   if (isLoading) return <div>...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="flex flex-wrap p-4">
-      <div className="w-1/2">
+      <div className="w-full lg:w-2/3">
         <div>
           <div className="text-xl my-2">Query:</div>
           <pre className="bg-slate-200 p-2 overflow-visible flex-wrap">
@@ -100,39 +100,40 @@ function App() {
           </pre>
         </div>
       </div>
-      <div className="h-full border px-2" />
-      <div>
-        <div>
-          <div className="text-xl my-2">Actions:</div>
-          <div className="flex-row space-x-4">
-            <ActionButton
-              onClick={() => clearScores(data["users"])}
-              label="Clear Highscore"
-            />
-            <ActionButton
-              onClick={() => clearProfiles(data["users"])}
-              label="Clear Profiles"
-            />
-            <ActionButton
-              onClick={() => deleteEnts(data["users"])}
-              label="Delete Users"
-            />
-            <ActionButton
-              onClick={() => deleteEnts(data["rooms"])}
-              label="Delete Rooms"
-            />
-          </div>
-          <ActionInput
-            onSubmit={deleteUser}
-            label="userId:"
-            submitLabel="Delete User"
+      <div className="lg:w-1/3 px-4">
+        <div className="text-xl my-2">Actions:</div>
+        <div className="space-x-4">
+          <ActionButton
+            onClick={() => clearScores(data["users"])}
+            label="Clear Highscore"
           />
-          <ActionInput
-            onSubmit={clearProfileName}
-            label="userId:"
-            submitLabel="Clear Profile Name"
+          <ActionButton
+            onClick={() => clearProfiles(data["users"])}
+            label="Clear Profiles"
+          />
+          <ActionButton
+            onClick={() => deleteEnts(data["users"])}
+            label="Delete Users"
+          />
+          <ActionButton
+            onClick={() => deleteEnts(data["rooms"])}
+            label="Delete Rooms"
+          />
+          <ActionButton
+            onClick={() => deleteEnts(data["games"])}
+            label="Delete Games"
           />
         </div>
+        <ActionInput
+          onSubmit={deleteUser}
+          label="userId:"
+          submitLabel="Delete User"
+        />
+        <ActionInput
+          onSubmit={clearProfileName}
+          label="userId:"
+          submitLabel="Clear Profile Name"
+        />
       </div>
     </div>
   );
