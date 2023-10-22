@@ -79,7 +79,7 @@ function ActionButton({ onClick, label, className = "" }) {
 }
 
 function App() {
-  const query = { users: {}, rooms: { users: {} }, games: {} };
+  const query = { users: {}, rooms: { users: {} }, games: {}, points: {} };
   const { isLoading, error, data } = useQuery(query);
   if (isLoading) return <div>...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -122,6 +122,10 @@ function App() {
           <ActionButton
             onClick={() => deleteEnts(data["games"])}
             label="Delete Games"
+          />
+          <ActionButton
+            onClick={() => deleteEnts(data["scores"])}
+            label="Delete Scores"
           />
         </div>
         <ActionInput

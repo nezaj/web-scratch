@@ -6,6 +6,7 @@ import Airbnb from "./BeAHost/poster";
 import Facebook from "./MoveFast/poster";
 import JiuJitsu from "./JiuJitsu/poster";
 import StroopRepl from "./StroopRepl";
+import Icon from "./Icon";
 
 let Component = null;
 switch (window.location.pathname) {
@@ -20,6 +21,9 @@ switch (window.location.pathname) {
     break;
   case "/stroop":
     Component = StroopRepl;
+    break;
+  case "/icon":
+    Component = Icon;
     break;
   default:
     Component = StroopRepl;
