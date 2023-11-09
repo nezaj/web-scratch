@@ -1,4 +1,7 @@
-/* Quick script for running concurrent sql queries on pg */
+/*
+  * Quick script for running concurrent sql queries on pg
+  * Usage: node src/scripts/pgTest.js
+  * */
 require('dotenv').config();
 
 const pg = require('@databases/pg');
