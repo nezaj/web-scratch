@@ -6,6 +6,7 @@ import Airbnb from "./BeAHost/poster";
 import Facebook from "./MoveFast/poster";
 import JiuJitsu from "./JiuJitsu/poster";
 import StroopRepl from "./StroopRepl";
+import BookSummary from "./BookSummary";
 import Icon from "./Icon";
 
 let Component = null;
@@ -26,7 +27,7 @@ switch (window.location.pathname) {
     Component = Icon;
     break;
   default:
-    Component = StroopRepl;
+    Component = BookSummary;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
