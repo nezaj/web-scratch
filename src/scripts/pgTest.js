@@ -8,22 +8,36 @@ const pg = require('@databases/pg');
 const createConnectionPool = pg.default;
 const sql = pg.sql;
 
-const POOL_SIZE = 50;
-const NUM_QUERIES = 400;
+// Levers
+const POOL_SIZE = 100;
+const NUM_QUERIES = 100;
 
-function getPostgresConfig() {
+// Environment
+const ENV_DEV = 'dev';
+const ENV_PROD = 'prod';
+const ENV = ENV_DEV;
+
+function getPostgresConfig(env) {
+  if (env === ENV_PROD) {
+    return {
+      user: process.env.INSTANT_DB_USER,
+      database: process.env.INSTANT_DB_DATABASE,
+      password: process.env.INSTANT_DB_PASSWORD,
+      port: process.env.INSTANT_DB_PORT,
+      host: process.env.INSTANT_DB_HOST,
+      bigIntMode: 'bigint',
+      poolSize: POOL_SIZE,
+    }
+  }
+
   return {
-    user: process.env.INSTANT_DB_USER,
-    database: process.env.INSTANT_DB_DATABASE,
-    password: process.env.INSTANT_DB_PASSWORD,
-    port: process.env.INSTANT_DB_PORT,
-    host: process.env.INSTANT_DB_HOST,
-    bigIntMode: 'bigint',
+    database: "nezaj",
     poolSize: POOL_SIZE,
   }
+
 }
 
-const conn = createConnectionPool(getPostgresConfig())
+const conn = createConnectionPool(getPostgresConfig(ENV))
 
 async function runQueries(conn) {
   console.time('runQueries'); // Start timing
@@ -34,8 +48,23 @@ async function runQueries(conn) {
   console.timeEnd('runQueries'); // End timing and log the result
 }
 
-runQueries(conn).then(() => {
-  console.log('Finished running queries');
-}).catch(error => {
-  console.error('Error executing queries:', error);
-})
+async function doWork() {
+  console.log("Running in", ENV, "with pool_size", POOL_SIZE, "and num_queries", NUM_QUERIES)
+  await runQueries(conn).then(() => {
+    console.log('Finished running queries');
+  }).catch(error => {
+    console.error('Error executing queries:', error);
+  })
+  await runQueries(conn).then(() => {
+    console.log('Finished running queries');
+  }).catch(error => {
+    console.error('Error executing queries:', error);
+  })
+  await runQueries(conn).then(() => {
+    console.log('Finished running queries');
+  }).catch(error => {
+    console.error('Error executing queries:', error);
+  })
+}
+
+doWork()
