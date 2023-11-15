@@ -5,11 +5,13 @@ import "./index.css";
 import Airbnb from "./BeAHost/poster";
 import Facebook from "./MoveFast/poster";
 import JiuJitsu from "./JiuJitsu/poster";
-import StroopRepl from "./StroopRepl";
+// import StroopRepl from "./StroopRepl";
 import BookSummary from "./BookSummary";
+import Booky from "./Booky";
 import Icon from "./Icon";
 
 let Component = null;
+let APP_ID = null;
 switch (window.location.pathname) {
   case "/airbnb":
     Component = Airbnb;
@@ -20,14 +22,19 @@ switch (window.location.pathname) {
   case "/bjj":
     Component = JiuJitsu;
     break;
-  case "/stroop":
-    Component = StroopRepl;
-    break;
+  // case "/stroop":
+  //   APP_ID = process.env.STROOP_APP_ID
+  //   Component = StroopRepl;
+  //   break;
   case "/icon":
     Component = Icon;
     break;
-  default:
+  case "/book-summary":
     Component = BookSummary;
+    break;
+  default:
+    APP_ID = process.env.BOOKY_APP_ID
+    Component = Booky;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

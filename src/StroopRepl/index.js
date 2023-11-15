@@ -1,12 +1,10 @@
 import { useQuery, tx, transact, init, id } from "@instantdb/react";
 import React, { useState } from "react";
 
-// Instant init
+// Init Instant
 // ------------------
-const APP_ID = "24b522b3-0ef8-4939-9646-658aac8716af";
-
 init({
-  appId: APP_ID,
+  appId: "24b522b3-0ef8-4939-9646-658aac8716af",
   websocketURI: "wss://api.instantdb.com/runtime/session",
 });
 
