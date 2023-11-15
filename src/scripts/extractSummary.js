@@ -1,5 +1,6 @@
 /*
-  * Quick script for extractSummary summaries from shortform
+  * Quick script to extract 1 page summaries from shortform and save
+  * them into Booky directory to play with there
   * Usage: node src/scripts/extractSummarySummary.js
   * */
 
@@ -7,7 +8,27 @@ require('dotenv').config();
 
 const fs = require('fs');
 const path = require('path');
+const jsonSlugs = require("../Booky/slugs.json");
 
+
+// Utils
+// -----------------
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
+
+function partition(array, n) {
+  return array.reduce((accumulator, currentValue, index) => {
+    if (index % n === 0) {
+      accumulator.push([currentValue]);
+    } else {
+      accumulator[accumulator.length - 1].push(currentValue);
+    }
+    return accumulator;
+  }, []);
+}
+
+
+// Fetch + Extract
+// -----------------
 function fetchSummary(url) {
   return new Promise((resolve, reject) => {
     fetch(url, {
@@ -45,21 +66,37 @@ function extractSummary(data) {
   }
 }
 
+async function fetchSummaries(batches, sleepMs) {
+  let summaries = [];
+
+  for (const [idx, slugs] of batches.entries()) {
+    const prefix = `[${idx + 1}/${batches.length}]`
+    console.log(prefix, "Fetching next batch", slugs);
+    const newSummaries = await Promise.all(slugs.map(slug => fetchSummary(`${API_URL}/${slug}`)));
+    summaries = summaries.concat(newSummaries);
+    console.log(prefix, "Fetch complete! Now sleeping for", sleepMs, "ms")
+    await sleep(sleepMs)
+  }
+
+  return summaries;
+}
+
+
+// Runner
+// -----------------
+const OUT_PATH = path.join(__dirname, "../Booky/books4.json");
+const START_INDEX = 450;
+const END_INDEX = 978;
 const API_URL = "https://www.shortform.com/api/books"
-const slugs = [
-  "chip-war",
-  "the-design-of-everyday-things",
-  "the-innovator-s-dilemma",
-  "sex-at-dawn",
-  "the-hero-with-a-thousand-faces"
-]
+const PARTITION_SIZE = 10;
+const SLEEP_MS = 60000;
 
 async function doWork() {
-  const summaries = await Promise.all(slugs.map(slug => fetchSummary(`${API_URL}/${slug}`)));
+  const batches = partition(jsonSlugs.slice(START_INDEX, END_INDEX), PARTITION_SIZE);
+  const summaries = await fetchSummaries(batches, SLEEP_MS);
   const jsonContent = JSON.stringify(summaries.filter(x => x), null, 2);
-  const outPath = path.join(__dirname, "../Booky/books.json");
 
-  fs.writeFile(outPath, jsonContent, 'utf8', (err) => {
+  fs.writeFile(OUT_PATH, jsonContent, 'utf8', (err) => {
     if (err) {
       console.log("An error occurred while writing JSON Object to File.");
       return console.log(err);
@@ -67,5 +104,6 @@ async function doWork() {
     console.log("Done!");
   });
 }
+
 
 doWork();
