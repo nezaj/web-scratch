@@ -1,26 +1,53 @@
-import { useQuery, tx, transact, init, id } from "@instantdb/react";
-import React, { useState } from "react";
-import booksData from "./books.json"
+import React, { useEffect, useState } from 'react';
+import jsonBooks from "./books.json"
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push, onValue, remove } from "firebase/database";
 
-// Init Instant
+// Init Firebase
 // ------------------
-init({
-  appId: "e8a4ab79-fce6-4372-bf04-c3ba7ad98d33",
-  websocketURI: "wss://api.instantdb.com/runtime/session",
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyAlIuSLlzc6RJd-8bWd6bhoCTdBXB5kmo8",
+  authDomain: "booky-74bfa.firebaseapp.com",
+  databaseURL: "https://booky-74bfa-default-rtdb.firebaseio.com",
+  projectId: "booky-74bfa",
+  storageBucket: "booky-74bfa.appspot.com",
+  messagingSenderId: "49622177975",
+  appId: "1:49622177975:web:6bec028c062b6704021532"
+};
+
+const app = initializeApp(firebaseConfig);
 
 // Actions
 // ------------------
-function loadBooks() {
-  const txs = booksData.map((e) => tx.books[id()].update({ ...e }));
-  transact(txs);
+function insertBook(bookData) {
+  const db = getDatabase(app);
+  const booksRef = ref(db, 'books');
+
+  push(booksRef, bookData)
+    .then(() => {
+      console.log("Book inserted successfully");
+    })
+    .catch((error) => {
+      console.error("Error inserting book:", error);
+    });
 }
 
-function deleteEnts(ents) {
-  const txs = ents.map((e) => tx.rooms[e.id].delete());
-  transact(txs);
+function deleteAllBooks() {
+  const db = getDatabase(app);
+  const booksRef = ref(db, 'books');
+
+  remove(booksRef)
+    .then(() => {
+      console.log("All books deleted successfully");
+    })
+    .catch((error) => {
+      console.error("Error deleting books:", error);
+    });
 }
 
+function loadBooks(books) {
+  books.map(b => insertBook(b));
+}
 
 // Components
 // ------------------
@@ -38,43 +65,47 @@ function ActionButton({ onClick, label, className = "" }) {
 // App
 // ------------------
 function App() {
-  const query = { users: {}, books: {} };
-  const { isLoading, error, data } = useQuery(query);
-  if (isLoading) return <div>...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const [books, setBooks] = useState({});
+
+  useEffect(() => {
+    const db = getDatabase(app);
+    const booksRef = ref(db, 'books');
+
+    const unsubscribe = onValue(booksRef, (snapshot) => {
+      const data = snapshot.exists() ? snapshot.val() : {};
+      setBooks(data);
+    }, {
+      onlyOnce: false
+    });
+
+    // Detach listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   return (
-    <div className="flex flex-wrap p-4">
-      <div className="w-full lg:w-2/3">
-        <div>
-          <div className="text-xl my-2">Query:</div>
-          <pre className="bg-slate-200 p-2 overflow-visible flex-wrap">
-            {JSON.stringify(query, null, 2)}
-          </pre>
-        </div>
-        <div>
-          <div className="text-xl my-2">Results:</div>
-          <pre className="bg-slate-200 p-2 flex-wrap">
-            {JSON.stringify(data, null, 2)}
-          </pre>
-        </div>
+    <div>
+      <div className="text-xl my-2">Actions:</div>
+      <div className="space-x-4">
+        <ActionButton
+          onClick={() => loadBooks(jsonBooks)}
+          label="Load Books"
+        />
+        <ActionButton
+          onClick={() => deleteAllBooks()}
+          label="Delete Books"
+        />
       </div>
-      <div className="lg:w-1/3 px-4">
-        <div className="text-xl my-2">Actions:</div>
-        <div>
-          <ActionButton
-            onClick={() => loadBooks(data["books"])}
-            label="Load Books"
-          />
-          <ActionButton
-            onClick={() => deleteEnts(data["books"])}
-            label="Delete Books"
-          />
-        </div>
+      <h2>Books List</h2>
+      <div>
+        {Object.entries(books).map(([key, book]) => (
+          <p key={key}>
+            {book.title} - {book.author}
+          </p>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default App;
 
