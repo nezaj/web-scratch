@@ -57,7 +57,7 @@ const slugs = [
 async function doWork() {
   const summaries = await Promise.all(slugs.map(slug => fetchSummary(`${API_URL}/${slug}`)));
   const jsonContent = JSON.stringify(summaries.filter(x => x), null, 2);
-  const outPath = path.join(__dirname, "bookSummaries.json");
+  const outPath = path.join(__dirname, "../Booky/books.json");
 
   fs.writeFile(outPath, jsonContent, 'utf8', (err) => {
     if (err) {
