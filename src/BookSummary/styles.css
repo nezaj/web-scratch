@@ -169,23 +169,24 @@ header a + a {
     margin-left: 1rem;
 }
 
-.posts {
-    margin: 0;
-    list-style: none;
+.preview {
+    margin-top: 1rem;
+    margin-bottom: 1rem; 
 }
-.posts .post a {
-    display: flex;
-    padding: 0.5em 0;
-    color: black;
+
+.title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem; 
+    font-size: 1.5rem;
+    line-height: 2rem; 
+    font-weight: 600; 
 }
-.posts .post a:hover, .posts .post a:focus, .posts .post a:active {
-    text-decoration: none;
-    background: rgba(200, 200, 200, 0.2);
+
+.tags {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1rem; 
+    font-style: italic; 
 }
-.posts .post date {
-    font-family: monospace, monospace;
-    font-size: 0.8rem;
-    vertical-align: middle;
-    padding-right: 2rem;
-    color: grey;
-}
+
