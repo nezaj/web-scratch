@@ -26,9 +26,6 @@ switch (window.location.pathname) {
   case "/icon":
     Component = Icon;
     break;
-  case "/Booky":
-    Component = Booky;
-    break;
   default:
     Component = StroopRepl;
 }
