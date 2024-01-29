@@ -7,6 +7,7 @@ import Facebook from "./MoveFast/poster";
 import JiuJitsu from "./JiuJitsu/poster";
 import StroopRepl from "./StroopRepl";
 import Icon from "./Icon";
+import MeetCute from "./MeetCute";
 
 let Component = null;
 switch (window.location.pathname) {
@@ -26,8 +27,11 @@ switch (window.location.pathname) {
   case "/icon":
     Component = Icon;
     break;
+  case "/cute":
+    Component = MeetCute;
+    break;
   default:
-    Component = StroopRepl;
+    Component = MeetCute;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
