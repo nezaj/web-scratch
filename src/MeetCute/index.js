@@ -3,7 +3,8 @@ import { notInterested, data } from "./private"
 export default function App() {
   const filteredData = data
     .filter(p => p["Gender"] === "Woman")
-    .filter(p => p["Home base city"]?.includes("New York") || p["Home base city"]?.includes("NY"))
+    .filter(p => p["Home base city"]?.includes("NY") || p["Home base city"]?.includes("New York"))
+    // .filter(p => p["Home base city"]?.includes("San Francisco") || p["Home base city"]?.includes("SF"))
     .filter(p => !notInterested.includes(`${p["First name"] || ''} ${p["Last name"] || ''}`.trim()))
   return (
     <div className="p-4">
@@ -28,7 +29,7 @@ export default function App() {
             <p>Social Media: {socialMedia}</p>
             <p>About: {about}</p>
             <p>Extra: {extra}</p>
-            <div className="flex w-1/3">
+            <div className="flex w-1/5">
               {pics?.map(url => <img src={url} />)}
             </div>
           </div>

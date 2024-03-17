@@ -8,6 +8,7 @@ import JiuJitsu from "./JiuJitsu/poster";
 import StroopRepl from "./StroopRepl";
 import Icon from "./Icon";
 import MeetCute from "./MeetCute";
+import InstantLanding from "./InstantLanding";
 
 let Component = null;
 switch (window.location.pathname) {
@@ -30,8 +31,10 @@ switch (window.location.pathname) {
   case "/cute":
     Component = MeetCute;
     break;
+  case "/InstantLanding":
+    Component = InstantLanding;
   default:
-    Component = MeetCute;
+    Component = InstantLanding;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
